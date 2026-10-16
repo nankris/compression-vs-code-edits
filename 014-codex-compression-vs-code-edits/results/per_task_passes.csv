@@ -1,0 +1,12 @@
+task,default,compact14k,trunc24
+T01_happy,2,2,2
+T02_duplicate,2,2,2
+T03_whitespace,2,2,2
+T04_tabs,2,2,2
+T05_stale,2,2,2
+T06_neardup,2,2,2
+T07_multihunk,2,2,2
+T08_insert,2,2,2
+T09_delete,2,2,2
+T10_replace_all,2,2,2
+T11_shortctx,2,2,2

@@ -1,0 +1,4 @@
+cond,runs,passes,pass_rate,total_tokens_mean,total_tokens_sd,cached_mean,uncached_mean,output_mean,cache_share,peak_context_mean,model_calls_mean,compactions_mean,tool_output_chars_mean,truncation_notices_mean,wall_s_mean,cost_total_usd,cost_mean_usd,cost_sd_usd,cost_per_success_usd
+default,22,22,1.0,61078.0,5444.0,54225.0,6560.0,293.0,0.892,15420.0,4.09,0.0,2674.0,0.0,22.6,0.4724,0.0215,0.0043,0.0215
+compact14k,22,22,1.0,58664.0,2790.0,51084.0,7268.0,312.0,0.875,14756.0,7.0,3.0,2287.0,0.0,51.6,0.5008,0.0228,0.0041,0.0228
+trunc24,22,22,1.0,78802.0,16149.0,71063.0,7347.0,392.0,0.906,15801.0,5.18,0.0,5482.0,3.0,28.8,0.5657,0.0257,0.0108,0.0257
