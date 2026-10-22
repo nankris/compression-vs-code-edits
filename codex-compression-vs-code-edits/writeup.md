@@ -1,6 +1,6 @@
 # I tried to starve Codex of context. It still fixed every bug, and paid more for it
 
-*Draft. Tech in General experiment #014. Numbers are from 66 headless Codex runs on 2026-10-14/15. All $ figures are estimates at API list price.*
+*Tech in General experiment. Numbers are from 66 headless Codex runs on 2026-10-14/15. All $ figures are estimates at API list price.*
 
 A common idea for making coding agents cheaper: give them less context. Summarize the history early, or cut the file and command output they read down to a sliver. The worry is that the agent then makes worse edits. I tested both on Codex CLI.
 
@@ -33,6 +33,6 @@ A fresh Codex session's first request is already about 13–15K tokens before it
 
 ## The takeaway
 
-On small edits, Codex is robust to losing context. It just works around it. That makes compression useless here, not dangerous. Save compaction for long sessions, where the history really is the big part (in #012 it cut a 14-turn session's cost by 22%). Leave file output alone unless it's genuinely huge.
+On small edits, Codex is robust to losing context. It just works around it. That makes compression useless here, not dangerous. Save compaction for long sessions, where the history really is the big part (in my [early-vs-late compaction experiment](https://github.com/nankris/early-vs-late-compaction) it cut a 14-turn session's cost by 22%). Leave file output alone unless it's genuinely huge.
 
-*Caveats: tiny tasks, 2 reps each, and the truncation arm uses a prompt rule because the config key for it does nothing in this build (#008). Full tables, raw logs and the exact commands are in the repo README.*
+*Caveats: tiny tasks, 2 reps each, and the truncation arm uses a prompt rule because the config key for it does nothing in this build (see my [tool-output caps experiment](https://github.com/nankris/tool-output-caps)). Full tables, raw logs and the exact commands are in the repo README.*

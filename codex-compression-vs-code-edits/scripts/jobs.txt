@@ -1,0 +1,67 @@
+# jobs: 3 arms x 11 tasks x 2 reps
+--exp . --cond default --task scripts/harness/fixtures/suite/T01_happy --rep 1 --timeout 420
+--exp . --cond compact14k --task scripts/harness/fixtures/suite/T01_happy --rep 1 --cfg model_auto_compact_token_limit=14000 --timeout 420
+--exp . --cond trunc24 --task scripts/harness/fixtures/suite/T01_happy --rep 1 --timeout 420 --prompt 'Make `node test.js` pass by fixing the code. Do not edit test.js. Hard rule: every exec_command call must set max_output_tokens to 24 or less.'
+--exp . --cond default --task scripts/harness/fixtures/suite/T02_duplicate --rep 1 --timeout 420
+--exp . --cond compact14k --task scripts/harness/fixtures/suite/T02_duplicate --rep 1 --cfg model_auto_compact_token_limit=14000 --timeout 420
+--exp . --cond trunc24 --task scripts/harness/fixtures/suite/T02_duplicate --rep 1 --timeout 420 --prompt 'Make `node test.js` pass by fixing the code. Do not edit test.js. Hard rule: every exec_command call must set max_output_tokens to 24 or less.'
+--exp . --cond default --task scripts/harness/fixtures/suite/T03_whitespace --rep 1 --timeout 420
+--exp . --cond compact14k --task scripts/harness/fixtures/suite/T03_whitespace --rep 1 --cfg model_auto_compact_token_limit=14000 --timeout 420
+--exp . --cond trunc24 --task scripts/harness/fixtures/suite/T03_whitespace --rep 1 --timeout 420 --prompt 'Make `node test.js` pass by fixing the code. Do not edit test.js. Hard rule: every exec_command call must set max_output_tokens to 24 or less.'
+--exp . --cond default --task scripts/harness/fixtures/suite/T04_tabs --rep 1 --timeout 420
+--exp . --cond compact14k --task scripts/harness/fixtures/suite/T04_tabs --rep 1 --cfg model_auto_compact_token_limit=14000 --timeout 420
+--exp . --cond trunc24 --task scripts/harness/fixtures/suite/T04_tabs --rep 1 --timeout 420 --prompt 'Make `node test.js` pass by fixing the code. Do not edit test.js. Hard rule: every exec_command call must set max_output_tokens to 24 or less.'
+--exp . --cond default --task scripts/harness/fixtures/suite/T05_stale --rep 1 --timeout 420
+--exp . --cond compact14k --task scripts/harness/fixtures/suite/T05_stale --rep 1 --cfg model_auto_compact_token_limit=14000 --timeout 420
+--exp . --cond trunc24 --task scripts/harness/fixtures/suite/T05_stale --rep 1 --timeout 420 --prompt 'Make `node test.js` pass by fixing the code. Do not edit test.js. Hard rule: every exec_command call must set max_output_tokens to 24 or less.'
+--exp . --cond default --task scripts/harness/fixtures/suite/T06_neardup --rep 1 --timeout 420
+--exp . --cond compact14k --task scripts/harness/fixtures/suite/T06_neardup --rep 1 --cfg model_auto_compact_token_limit=14000 --timeout 420
+--exp . --cond trunc24 --task scripts/harness/fixtures/suite/T06_neardup --rep 1 --timeout 420 --prompt 'Make `node test.js` pass by fixing the code. Do not edit test.js. Hard rule: every exec_command call must set max_output_tokens to 24 or less.'
+--exp . --cond default --task scripts/harness/fixtures/suite/T07_multihunk --rep 1 --timeout 420
+--exp . --cond compact14k --task scripts/harness/fixtures/suite/T07_multihunk --rep 1 --cfg model_auto_compact_token_limit=14000 --timeout 420
+--exp . --cond trunc24 --task scripts/harness/fixtures/suite/T07_multihunk --rep 1 --timeout 420 --prompt 'Make `node test.js` pass by fixing the code. Do not edit test.js. Hard rule: every exec_command call must set max_output_tokens to 24 or less.'
+--exp . --cond default --task scripts/harness/fixtures/suite/T08_insert --rep 1 --timeout 420
+--exp . --cond compact14k --task scripts/harness/fixtures/suite/T08_insert --rep 1 --cfg model_auto_compact_token_limit=14000 --timeout 420
+--exp . --cond trunc24 --task scripts/harness/fixtures/suite/T08_insert --rep 1 --timeout 420 --prompt 'Make `node test.js` pass by fixing the code. Do not edit test.js. Hard rule: every exec_command call must set max_output_tokens to 24 or less.'
+--exp . --cond default --task scripts/harness/fixtures/suite/T09_delete --rep 1 --timeout 420
+--exp . --cond compact14k --task scripts/harness/fixtures/suite/T09_delete --rep 1 --cfg model_auto_compact_token_limit=14000 --timeout 420
+--exp . --cond trunc24 --task scripts/harness/fixtures/suite/T09_delete --rep 1 --timeout 420 --prompt 'Make `node test.js` pass by fixing the code. Do not edit test.js. Hard rule: every exec_command call must set max_output_tokens to 24 or less.'
+--exp . --cond default --task scripts/harness/fixtures/suite/T10_replace_all --rep 1 --timeout 420
+--exp . --cond compact14k --task scripts/harness/fixtures/suite/T10_replace_all --rep 1 --cfg model_auto_compact_token_limit=14000 --timeout 420
+--exp . --cond trunc24 --task scripts/harness/fixtures/suite/T10_replace_all --rep 1 --timeout 420 --prompt 'Make `node test.js` pass by fixing the code. Do not edit test.js. Hard rule: every exec_command call must set max_output_tokens to 24 or less.'
+--exp . --cond default --task scripts/harness/fixtures/suite/T11_shortctx --rep 1 --timeout 420
+--exp . --cond compact14k --task scripts/harness/fixtures/suite/T11_shortctx --rep 1 --cfg model_auto_compact_token_limit=14000 --timeout 420
+--exp . --cond trunc24 --task scripts/harness/fixtures/suite/T11_shortctx --rep 1 --timeout 420 --prompt 'Make `node test.js` pass by fixing the code. Do not edit test.js. Hard rule: every exec_command call must set max_output_tokens to 24 or less.'
+--exp . --cond default --task scripts/harness/fixtures/suite/T01_happy --rep 2 --timeout 420
+--exp . --cond compact14k --task scripts/harness/fixtures/suite/T01_happy --rep 2 --cfg model_auto_compact_token_limit=14000 --timeout 420
+--exp . --cond trunc24 --task scripts/harness/fixtures/suite/T01_happy --rep 2 --timeout 420 --prompt 'Make `node test.js` pass by fixing the code. Do not edit test.js. Hard rule: every exec_command call must set max_output_tokens to 24 or less.'
+--exp . --cond default --task scripts/harness/fixtures/suite/T02_duplicate --rep 2 --timeout 420
+--exp . --cond compact14k --task scripts/harness/fixtures/suite/T02_duplicate --rep 2 --cfg model_auto_compact_token_limit=14000 --timeout 420
+--exp . --cond trunc24 --task scripts/harness/fixtures/suite/T02_duplicate --rep 2 --timeout 420 --prompt 'Make `node test.js` pass by fixing the code. Do not edit test.js. Hard rule: every exec_command call must set max_output_tokens to 24 or less.'
+--exp . --cond default --task scripts/harness/fixtures/suite/T03_whitespace --rep 2 --timeout 420
+--exp . --cond compact14k --task scripts/harness/fixtures/suite/T03_whitespace --rep 2 --cfg model_auto_compact_token_limit=14000 --timeout 420
+--exp . --cond trunc24 --task scripts/harness/fixtures/suite/T03_whitespace --rep 2 --timeout 420 --prompt 'Make `node test.js` pass by fixing the code. Do not edit test.js. Hard rule: every exec_command call must set max_output_tokens to 24 or less.'
+--exp . --cond default --task scripts/harness/fixtures/suite/T04_tabs --rep 2 --timeout 420
+--exp . --cond compact14k --task scripts/harness/fixtures/suite/T04_tabs --rep 2 --cfg model_auto_compact_token_limit=14000 --timeout 420
+--exp . --cond trunc24 --task scripts/harness/fixtures/suite/T04_tabs --rep 2 --timeout 420 --prompt 'Make `node test.js` pass by fixing the code. Do not edit test.js. Hard rule: every exec_command call must set max_output_tokens to 24 or less.'
+--exp . --cond default --task scripts/harness/fixtures/suite/T05_stale --rep 2 --timeout 420
+--exp . --cond compact14k --task scripts/harness/fixtures/suite/T05_stale --rep 2 --cfg model_auto_compact_token_limit=14000 --timeout 420
+--exp . --cond trunc24 --task scripts/harness/fixtures/suite/T05_stale --rep 2 --timeout 420 --prompt 'Make `node test.js` pass by fixing the code. Do not edit test.js. Hard rule: every exec_command call must set max_output_tokens to 24 or less.'
+--exp . --cond default --task scripts/harness/fixtures/suite/T06_neardup --rep 2 --timeout 420
+--exp . --cond compact14k --task scripts/harness/fixtures/suite/T06_neardup --rep 2 --cfg model_auto_compact_token_limit=14000 --timeout 420
+--exp . --cond trunc24 --task scripts/harness/fixtures/suite/T06_neardup --rep 2 --timeout 420 --prompt 'Make `node test.js` pass by fixing the code. Do not edit test.js. Hard rule: every exec_command call must set max_output_tokens to 24 or less.'
+--exp . --cond default --task scripts/harness/fixtures/suite/T07_multihunk --rep 2 --timeout 420
+--exp . --cond compact14k --task scripts/harness/fixtures/suite/T07_multihunk --rep 2 --cfg model_auto_compact_token_limit=14000 --timeout 420
+--exp . --cond trunc24 --task scripts/harness/fixtures/suite/T07_multihunk --rep 2 --timeout 420 --prompt 'Make `node test.js` pass by fixing the code. Do not edit test.js. Hard rule: every exec_command call must set max_output_tokens to 24 or less.'
+--exp . --cond default --task scripts/harness/fixtures/suite/T08_insert --rep 2 --timeout 420
+--exp . --cond compact14k --task scripts/harness/fixtures/suite/T08_insert --rep 2 --cfg model_auto_compact_token_limit=14000 --timeout 420
+--exp . --cond trunc24 --task scripts/harness/fixtures/suite/T08_insert --rep 2 --timeout 420 --prompt 'Make `node test.js` pass by fixing the code. Do not edit test.js. Hard rule: every exec_command call must set max_output_tokens to 24 or less.'
+--exp . --cond default --task scripts/harness/fixtures/suite/T09_delete --rep 2 --timeout 420
+--exp . --cond compact14k --task scripts/harness/fixtures/suite/T09_delete --rep 2 --cfg model_auto_compact_token_limit=14000 --timeout 420
+--exp . --cond trunc24 --task scripts/harness/fixtures/suite/T09_delete --rep 2 --timeout 420 --prompt 'Make `node test.js` pass by fixing the code. Do not edit test.js. Hard rule: every exec_command call must set max_output_tokens to 24 or less.'
+--exp . --cond default --task scripts/harness/fixtures/suite/T10_replace_all --rep 2 --timeout 420
+--exp . --cond compact14k --task scripts/harness/fixtures/suite/T10_replace_all --rep 2 --cfg model_auto_compact_token_limit=14000 --timeout 420
+--exp . --cond trunc24 --task scripts/harness/fixtures/suite/T10_replace_all --rep 2 --timeout 420 --prompt 'Make `node test.js` pass by fixing the code. Do not edit test.js. Hard rule: every exec_command call must set max_output_tokens to 24 or less.'
+--exp . --cond default --task scripts/harness/fixtures/suite/T11_shortctx --rep 2 --timeout 420
+--exp . --cond compact14k --task scripts/harness/fixtures/suite/T11_shortctx --rep 2 --cfg model_auto_compact_token_limit=14000 --timeout 420
+--exp . --cond trunc24 --task scripts/harness/fixtures/suite/T11_shortctx --rep 2 --timeout 420 --prompt 'Make `node test.js` pass by fixing the code. Do not edit test.js. Hard rule: every exec_command call must set max_output_tokens to 24 or less.'

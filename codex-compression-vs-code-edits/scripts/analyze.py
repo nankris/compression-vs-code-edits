@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""#014 summary + chart. Needs results/runs.csv and results/rollout_extra.csv (scripts/rollout_extra.py)."""
+"""Summary + chart. Needs results/runs.csv and results/rollout_extra.csv (scripts/rollout_extra.py)."""
 import os
 import pandas as pd
 import matplotlib

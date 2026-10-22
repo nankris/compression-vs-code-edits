@@ -1,4 +1,4 @@
-# #014 Does compressing context hurt Codex's code edits?
+# Does compressing context hurt Codex's code edits?
 
 **Question.** If you squeeze what a coding agent keeps in context, either by compacting (summarizing) the history aggressively or by truncating the file and tool output it reads, does it get worse at making code edits? And what does it do to tokens? (Originally planned on Claude; run on Codex CLI here.)
 
@@ -11,26 +11,26 @@ On small edit tasks the context is mostly Codex's fixed ~13–15K-token system p
 ## Setup
 
 - Codex CLI `codex-cli 0.162.1`, model `gpt-6.1-sol`, default reasoning effort, ChatGPT Plus login. Headless `codex exec --json --skip-git-repo-check --dangerously-bypass-approvals-and-sandbox -C <fresh temp copy>`, one fresh session per run.
-- Tasks: the 11 edit tasks `T01`–`T11` from the shared harness (`scripts/harness/fixtures/SUITE14/T*`): happy-path fix, duplicate block, whitespace, tabs, stale snapshot, near-duplicate lines, multi-hunk, insert, delete, replace-all, short-context. Each is one small `broken.js` plus `test.js`.
+- Tasks: the 11 edit tasks `T01`–`T11` from the shared harness (`scripts/harness/fixtures/suite/T*`): happy-path fix, duplicate block, whitespace, tabs, stale snapshot, near-duplicate lines, multi-hunk, insert, delete, replace-all, short-context. Each is one small `broken.js` plus `test.js`.
 - Pass = `node test.js` exits 0 in the run's copy **and** `test.js` is unchanged (hash check).
 - Arms (11 tasks × 2 reps = 22 runs each, interleaved and run 3 at a time):
   - `default`: prompt ``Make `node test.js` pass by fixing the code. Do not edit test.js.``
   - `compact14k`: same prompt, `-c model_auto_compact_token_limit=14000`. A fresh session's first request is ~13–15K tokens, so 14K forces compaction after almost every step. Picked after a 1-run probe (`results/probe/`, excluded).
-  - `trunc24`: same prompt plus ``Hard rule: every exec_command call must set max_output_tokens to 24 or less.`` This is the way to truncate file/tool output that actually works in this build: #008 showed the `tool_output_token_limit` config key has no effect here, because the model sets `max_output_tokens` on every call. The model obeyed in every run (requested values logged in `results/rollout_extra.csv`), and Codex inserted ~3 "truncated output" notices per run.
+  - `trunc24`: same prompt plus ``Hard rule: every exec_command call must set max_output_tokens to 24 or less.`` This is the way to truncate file/tool output that actually works in this build: my [tool-output caps experiment](https://github.com/nankris/tool-output-caps) showed the `tool_output_token_limit` config key has no effect here, because the model sets `max_output_tokens` on every call. The model obeyed in every run (requested values logged in `results/rollout_extra.csv`), and Codex inserted ~3 "truncated output" notices per run.
 - Cost estimate: gpt-6.1-sol API list price $2.00/M uncached input, $0.10/M cached input, $10.00/M output (https://developers.openai.com/api/docs/models/gpt-6.1-sol, checked 2026-10-14). **Estimates only**; Plus is a flat subscription.
 
 ## Exact commands
 
 ```bash
-source /workspace/tools/setup.sh
+# optional: activate your own Python/Codex environment first
 # one run
-python3 scripts/harness/run_one.py --exp . --cond compact14k --task scripts/harness/fixtures/SUITE14/T07_multihunk --rep 1 \
+python3 scripts/harness/run_one.py --exp . --cond compact14k --task scripts/harness/fixtures/suite/T07_multihunk --rep 1 \
   --cfg model_auto_compact_token_limit=14000 --timeout 420
 # all 66 runs (scripts/jobs.txt), 3 in parallel
 scripts/harness/driver.sh scripts/jobs.txt 3 results/driver.log
 # per-run extras from the session rollouts, then tables + chart
 python3 scripts/rollout_extra.py results/runs.csv results/rollout_extra.csv
-/workspace/tools/mlenv/bin/python scripts/analyze.py
+python3 scripts/analyze.py
 ```
 
 ## Results (66 runs, 2026-10-14 19:34–19:47 UTC / 2026-10-15 01:04–01:17 IST)
@@ -62,15 +62,15 @@ Chart: `results/chart.png` (pass rate, total tokens, est. cost, model calls per 
 ### What the numbers say
 1. **Success didn't move.** 100% in every arm. Even when every shell call got only 24 tokens of output and the history was summarized three times per run, Codex still made correct edits without touching the tests.
 2. **Compaction swapped context for calls.** Each compaction is an extra model call that re-reads the ~14K prefix. Total tokens fell slightly because the post-compaction requests were shorter, but uncached input rose (6.6K → 7.3K), so cost went up 6%. The run took twice as long.
-3. **Truncation backfired on tokens.** With 24-token slices the agent had to read files a piece at a time, adding about one call per run and 18K tokens. It hit hardest on tasks with longer files or several edit sites (T07 multi-hunk +71%, T11 +38%, T06 +51%). This is the "cut tool output, pay more" effect #008 couldn't reproduce with a 256-token cap. At 24 it shows up.
+3. **Truncation backfired on tokens.** With 24-token slices the agent had to read files a piece at a time, adding about one call per run and 18K tokens. It hit hardest on tasks with longer files or several edit sites (T07 multi-hunk +71%, T11 +38%, T06 +51%). This is the "cut tool output, pay more" effect that [tool-output caps experiment](https://github.com/nankris/tool-output-caps) couldn't reproduce with a 256-token cap. At 24 it shows up.
 4. **The baseline is already mostly fixed overhead.** Peak context was ~15K in every arm, nearly all of it Codex's system prompt and tool definitions, which compression can't touch.
 
 ## Caveats
-- Ceiling effect: these are tiny, one-file edits. Compression could hurt success on long sessions or big files, where the summary drops something the agent needs. #012 is the long-session counterpart (compaction at 25K over 14 turns: no failures, 22% cheaper).
+- Ceiling effect: these are tiny, one-file edits. Compression could hurt success on long sessions or big files, where the summary drops something the agent needs. My [early-vs-late compaction experiment](https://github.com/nankris/early-vs-late-compaction) is the long-session counterpart (compaction at 25K over 14 turns: no failures, 22% cheaper).
 - The `trunc24` arm changes the prompt as well as the output size; there's no config key that truncates in this build.
 - 2 reps per task; the cost gaps (6%, 20%) are within about one standard deviation of a single run, though the token and call differences are consistent across tasks.
-- A sandbox VM restart at ~19:48 UTC happened after all 66 runs had been recorded; analysis outputs were regenerated afterwards.
-- Other Codex experiments (#030) ran on the same account at the same time; rate-limit percentages in `runs.csv` include them.
+- The machine restarted at ~19:48 UTC, after all 66 runs had been recorded; analysis outputs were regenerated afterwards.
+- Another Codex experiment (my [JSON-schema reliability test](https://github.com/nankris/json-schema-reliability)) ran on the same account at the same time; rate-limit percentages in `runs.csv` include them.
 
 ## Files
 - `scripts/harness/`: copy of the shared harness (`run_one.py`, `driver.sh`, `chain.sh`, `backfill.py`, fixtures)
